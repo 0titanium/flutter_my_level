@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,18 +34,34 @@ class MyLevelApp extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: centerY,
-            left: centerX,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.deepPurpleAccent,
-                shape: BoxShape.circle,
-              ),
-              width: 100,
-              height: 100,
-            ),
-          ),
+          StreamBuilder<AccelerometerEvent>(
+              stream: accelerometerEventStream(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                final event = snapshot.data!;
+
+                List<double> accelerometerValues = [event.x, event.y, event.z];
+
+                print(accelerometerValues);
+
+                return Positioned(
+                  top: centerY,
+                  left: centerX,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.deepPurpleAccent,
+                      shape: BoxShape.circle,
+                    ),
+                    width: 100,
+                    height: 100,
+                  ),
+                );
+              }),
         ],
       ),
     );
