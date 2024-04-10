@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 void main() {
@@ -30,6 +31,11 @@ class MyLevelApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final centerX = MediaQuery.of(context).size.width / 2 - 50;
     final centerY = MediaQuery.of(context).size.height / 2 - 50;
+
+    // 가로모드
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+    ]);
 
     return Scaffold(
       body: Stack(
