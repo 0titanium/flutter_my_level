@@ -53,11 +53,9 @@ class MyLevelApp extends StatelessWidget {
 
                 List<double> accelerometerValues = [event.x, event.y, event.z];
 
-                print(accelerometerValues);
-
                 return Positioned(
-                  top: centerY,
-                  left: centerX,
+                  top: centerY + event.x * 20,
+                  left: centerX + event.y * 20,
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.deepPurpleAccent,
